@@ -15,5 +15,10 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "src/client/views/phaser2d",
+    "src/client/views/babylon3d",
+    "web"
   ]
 }

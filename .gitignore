@@ -2,3 +2,6 @@ node_modules
 build
 .colyseus-cloud.json
 .devmode.json
+dist-babylon/
+dist-phaser/
+.env*
