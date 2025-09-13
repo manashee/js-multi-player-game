@@ -146,14 +146,18 @@ function render() {
     for (let x = 0; x < width; x++) {
       const k = `${x},${y}`;
       const here = playerAt[k];
-      if (here && here.length > 0) {
-        // Show first player's initial
+      // Trees take precedence in rendering; players can't move into trees
+      const hasTree = !!(s && (s as any).trees && (s as any).trees.get(k));
+      if (hasTree) {
+        line += 'T';
+      } else if (here && here.length > 0) {
+        // Show first player's tribe letter (lowercase)
         const initial = (here[0].name || '?')[0] || '?';
-        line += initial.toUpperCase();
+        line += initial; // keep lower-case for tribe a/b/c
       } else {
         const depth = (s && (s as any).pits && (s as any).pits.get(k)) || 0;
         if (depth > 0) line += String(Math.min(depth, 9));
-        else line += '·'; // undug
+        else line += '·'; // empty/undug
       }
     }
     lines.push(line);
@@ -163,7 +167,8 @@ function render() {
   // Player list and inventories
   console.log('\nPlayers:');
   for (const p of players) {
-    console.log(`- ${p.name}(${p.x},${p.y}) gold=${p.gold}${p.poisoned ? ' poisoned' : ''}`);
+    const tribe = (p as any).tribe ? `[${(p as any).tribe}]` : '';
+    console.log(`- ${p.name}${tribe}(${p.x},${p.y}) gold=${p.gold}${p.poisoned ? ' poisoned' : ''}`);
   }
 }
 
