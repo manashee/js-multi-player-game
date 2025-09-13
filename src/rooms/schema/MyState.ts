@@ -1,10 +1,17 @@
 import { Schema, MapSchema, type } from "@colyseus/schema";
- 
+
 export class Player extends Schema {
-    @type("number") x: number = 0;
-    @type("number") y: number = 0;
+  @type("string") name: string = "";
+  @type("number") x: number = 0;
+  @type("number") y: number = 0;
+  @type("number") gold: number = 0;
+  @type("boolean") poisoned: boolean = false;
 }
- 
+
 export class MyState extends Schema {
-    @type({ map: Player }) players = new MapSchema<Player>();
+  @type("number") width: number = 10;
+  @type("number") height: number = 10;
+  // pits map: key = "x,y", value = depth dug at that cell
+  @type({ map: "number" }) pits = new MapSchema<number>();
+  @type({ map: Player }) players = new MapSchema<Player>();
 }
