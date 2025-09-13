@@ -111,9 +111,7 @@ export class MyRoom extends Room<MyState> {
   private handleMove(client: Client, data: any) {
     const player = this.state.players.get(client.sessionId);
     if (!player) return;
-    const now = Date.now();
-    const last = this.lastMoveAt.get(client.sessionId) || 0;
-    if (now - last < 1000) { return; }
+    // removed 1-move-per-second throttle
 
     let dx = 0, dy = 0;
     if (typeof data === 'string') {
@@ -133,7 +131,7 @@ export class MyRoom extends Room<MyState> {
       if (!this.hasTree(nx, ny)) {
         player.x = nx;
         player.y = ny;
-        this.lastMoveAt.set(client.sessionId, now);
+        // no throttle timestamp update
         // After movement, resolve combat with defender's advantage
         this.resolveCombatAround(client.sessionId, client.sessionId);
       }
