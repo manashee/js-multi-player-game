@@ -54,6 +54,10 @@ export class PhaserRenderer implements Renderer {
       if (depth > 0) {
         const gray = 0x2a2a2a;
         const r = s.add.rectangle(ox + x * cell, oy + y * cell, cell, cell, gray).setOrigin(0);
+        s.add.text(r.x + cell / 2, r.y + cell / 2, String(depth), {
+          fontSize: `${Math.max(12, cell * 0.4)}px`,
+          color: '#bbbbbb',
+        }).setOrigin(0.5);
         r.setStrokeStyle(1, 0x000000);
       }
     });
