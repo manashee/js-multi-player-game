@@ -7,7 +7,11 @@ This project has been created using [⚔️ `create-colyseus-app`](https://githu
 ## :crossed_swords: Usage
 
 ```
+npm i
+npm run build:all
 npm start
+npm run client:phaser
+npm run client:babylon
 ```
 
 ## Structure
